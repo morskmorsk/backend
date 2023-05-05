@@ -16,9 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts.routers import router as accounts_router
+from store.routers import router as store_router
+from workorders.routers import router as workorders_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(accounts_router.urls), name='api'),
-    path('api-auth/', include('rest_framework.urls'), name='api-auth')
+    path('users/', include(accounts_router.urls),
+         name='users_api'),
+    path('store/', include(store_router.urls),
+         name='store_api'),
+    path('workorders/', include(workorders_router.urls),
+         name='workorders_api'),
+    path('api-auth/', include('rest_framework.urls'),
+         name='api-auth')
 ]
