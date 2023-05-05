@@ -19,6 +19,6 @@ from accounts.routers import router as accounts_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(accounts_router.urls)),
-    path('api-auth/', include('rest_framework.urls'))
+    path('', include(accounts_router.urls), name='api'),
+    path('api-auth/', include('rest_framework.urls'), name='api-auth')
 ]
