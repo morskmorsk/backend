@@ -28,5 +28,7 @@ urlpatterns = [
     path('workorders/', include(workorders_router.urls),
          name='workorders_api'),
     path('api-auth/', include('rest_framework.urls'),
-         name='api-auth')
+         name='api-auth'),
+    path('users/', include('accounts.urls'),
+         name='users_api'),
 ]
