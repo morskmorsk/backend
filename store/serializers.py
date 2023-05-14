@@ -5,6 +5,10 @@ from .models import (
     Product,
     ShoppingCart,
     ShoppingCartItem,
+    DeviceDefect,
+    Device,
+    WorkOrderCart,
+    WorkOrderCartItem,
     Order,
     OrderItem
     )
@@ -37,6 +41,32 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
 class ShoppingCartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShoppingCartItem
+        fields = '__all__'
+
+
+
+
+class DeviceDefectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeviceDefect
+        fields = '__all__'
+
+
+class DeviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Device
+        fields = '__all__'
+
+
+class WorkOrderCartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkOrderCart
+        fields = '__all__'
+
+
+class WorkOrderCartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkOrderCartItem
         fields = '__all__'
 
 

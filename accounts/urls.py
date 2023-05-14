@@ -7,6 +7,6 @@ router.register(r'users', CustomUserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('users/new/', CustomUserViewSet.as_view({'post': 'create'}),
-         name='user-register'),
+    # path('users/new/', CustomUserViewSet.as_view({'post': 'create'}),
+    #      name='user-register'),
 ]

@@ -5,6 +5,10 @@ from .models import (
     Product,
     ShoppingCart,
     ShoppingCartItem,
+    DeviceDefect,
+    Device,
+    WorkOrderCart,
+    WorkOrderCartItem,
     Order,
     OrderItem)
 from .serializers import (
@@ -13,6 +17,10 @@ from .serializers import (
     ProductSerializer,
     ShoppingCartSerializer,
     ShoppingCartItemSerializer,
+    DeviceDefectSerializer,
+    DeviceSerializer,
+    WorkOrderCartSerializer,
+    WorkOrderCartItemSerializer,
     OrderSerializer,
     OrderItemSerializer)
 
@@ -40,6 +48,26 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
 class ShoppingCartItemViewSet(viewsets.ModelViewSet):
     queryset = ShoppingCartItem.objects.all()
     serializer_class = ShoppingCartItemSerializer
+
+
+class DeviceDefectViewSet(viewsets.ModelViewSet):
+    queryset = DeviceDefect.objects.all()
+    serializer_class = DeviceDefectSerializer
+
+
+class DeviceViewSet(viewsets.ModelViewSet):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+
+
+class WorkOrderCartViewSet(viewsets.ModelViewSet):
+    queryset = WorkOrderCart.objects.all()
+    serializer_class = WorkOrderCartSerializer
+
+
+class WorkOrderCartItemViewSet(viewsets.ModelViewSet):
+    queryset = WorkOrderCartItem.objects.all()
+    serializer_class = WorkOrderCartItemSerializer
 
 
 class OrderViewSet(viewsets.ModelViewSet):
