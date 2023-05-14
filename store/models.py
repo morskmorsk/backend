@@ -7,7 +7,9 @@ from datetime import datetime
 
 class Department(models.Model):
     name = models.CharField(max_length=200)
-    taxable = models.CharField(max_length=3, default='yes')
+    taxable = models.CharField(max_length=3, choices=[('yes', 'Yes'),
+                                                      ('no', 'No')],
+                               default='yes')
 
     def __str__(self):
         return self.name
