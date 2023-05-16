@@ -25,4 +25,3 @@ admin.site.register(WorkOrderCart)
 admin.site.register(WorkOrderCartItem)
 admin.site.register(Order)
 admin.site.register(OrderItem)
-
