@@ -60,13 +60,13 @@ class Product(models.Model):
         default='1',
         related_name='location'
     )
-    onhand_quantity = models.IntegerField(default=0)
-    sale_start = models.DateTimeField(blank=True, null=True, default=None)
-    sale_end = models.DateTimeField(blank=True, null=True, default=None)
+    onHandQuantity = models.IntegerField(default=0)
+    saleStart = models.DateTimeField(blank=True, null=True, default=None)
+    saleEnd = models.DateTimeField(blank=True, null=True, default=None)
     notes = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)
     photo = models.ImageField(
         blank=True,
@@ -75,7 +75,7 @@ class Product(models.Model):
         upload_to='static/images/store/products'
     )
     url = models.CharField(max_length=200, blank=True, null=True)
-    product_created_by = models.ForeignKey(
+    productCreatedBy = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
         default=None,
@@ -83,7 +83,7 @@ class Product(models.Model):
         blank=True,
         null=True
     )
-    product_updated_by = models.ForeignKey(
+    productUpdatedBy = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
         default=None,
@@ -91,9 +91,9 @@ class Product(models.Model):
         blank=True,
 
         null=True)
-    ms_url = models.CharField(max_length=300, blank=True, null=True)
+    msUrl = models.CharField(max_length=300, blank=True, null=True)
 
-    def is_on_sale(self):
+    def isOnSale(self):
         now = timezone.now()
         if self.sale_start:
             if self.sale_end:
@@ -101,22 +101,22 @@ class Product(models.Model):
             return self.sale_start <= now
         return False
 
-    def get_rounded_price(self):
+    def getRoundedPrice(self):
         return round(self.price, 2)
 
-    def current_price(self):
+    def currentPrice(self):
         if self.is_on_sale():
             discounted_price = self.price * (1 - self.DISCOUNT_RATE)
             return round(discounted_price, 2)
         return self.get_rounded_price()
 
-    def get_margin(self):
+    def getMargin(self):
         if self.cost:
             margin = self.price - self.cost
             return round(margin, 2)
         return 0
 
-    def get_markup(self):
+    def getMarkup(self):
         if self.cost:
             markup = (self.price / self.cost) * 100
             return round(markup, 2)
@@ -161,10 +161,10 @@ class ShoppingCartItem(models.Model):
 
 
 class DeviceDefect(models.Model):
-    defect_name = models.CharField(max_length=50, unique=True)
-    defect_description = models.TextField(
+    defectName = models.CharField(max_length=50, unique=True)
+    defectDescription = models.TextField(
         max_length=500, blank=True, null=True)
-    defect_solution = models.TextField(max_length=500, blank=True, null=True)
+    defectSolution = models.TextField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.defect_name
@@ -184,11 +184,11 @@ class Device(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, related_name='device_department')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=1)
-    device_model = models.CharField(max_length=200, blank=True, null=True)
+    deviceModel = models.CharField(max_length=200, blank=True, null=True)
     color = models.CharField(max_length=200, blank=True, null=True)
     carrier = models.CharField(max_length=200, blank=True, null=True)
     imei = models.CharField(max_length=20, blank=True, null=True)
-    serial_number = models.CharField(max_length=50, blank=True, null=True)
+    serialNumber = models.CharField(max_length=50, blank=True, null=True)
     seller = models.ForeignKey(Profile,
                                on_delete=models.CASCADE,
                                related_name='device_seller',
@@ -200,23 +200,23 @@ class Device(models.Model):
     cost = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     value = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    device_created_by = models.ForeignKey(
+    deviceCreated_by = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
         related_name='device_created_by',
         null=True,
         blank=True
     )
-    device_updated_by = models.ForeignKey(
+    deviceUpdated_by = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
         related_name='device_updated_by',
         null=True,
         blank=True
     )
-    purchase_date = models.DateField(default=datetime.now)
-    device_created_date = models.DateTimeField(auto_now_add=True)
-    device_updated_date = models.DateTimeField(auto_now_add=True,)
+    purchaseDate = models.DateField(default=datetime.now)
+    deviceCreatedDate = models.DateTimeField(auto_now_add=True)
+    deviceUpdatedDate = models.DateTimeField(auto_now_add=True,)
     info = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     report = models.FileField(
@@ -224,7 +224,7 @@ class Device(models.Model):
         null=True,
         blank=True
     )
-    device_defects = models.ManyToManyField(
+    deviceDefects = models.ManyToManyField(
         DeviceDefect,
         related_name='device_defects',
         help_text='Select all that apply',
@@ -278,26 +278,26 @@ class WorkOrderCartItem(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='order_customer')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    order_type = models.CharField(max_length=50,
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
+    orderType = models.CharField(max_length=50,
                                   choices=[('repair', 'Repair'),
                                            ('purchase', 'Purchase'),
                                            ('return', 'Return')],
                                   default='repair')
-    order_status = models.CharField(max_length=50,
+    orderStatus = models.CharField(max_length=50,
                                     choices=[('pending', 'Pending'),
                                              ('in_progress', 'In Progress'),
                                              ('completed', 'Completed'),
                                              ('cancelled', 'Cancelled')],
                                     default='pending')
-    order_total = models.DecimalField(max_digits=10, decimal_places=2,
+    orderTotal = models.DecimalField(max_digits=10, decimal_places=2,
                                       default=0.00)
-    order_tax = models.DecimalField(max_digits=10, decimal_places=2,
+    orderTax = models.DecimalField(max_digits=10, decimal_places=2,
                                     default=0.00)
-    order_subtotal = models.DecimalField(max_digits=10, decimal_places=2,
+    orderSubtotal = models.DecimalField(max_digits=10, decimal_places=2,
                                          default=0.00)
-    order_discount = models.DecimalField(max_digits=10, decimal_places=2,
+    orderDiscount = models.DecimalField(max_digits=10, decimal_places=2,
                                          default=0.00)
 
     def __str__(self):
