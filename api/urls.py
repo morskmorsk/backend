@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from accounts.routers import router as accounts_router
 from store.routers import router as store_router
+import store.urls
 from accounts.views import MyTokenObtainPairView, MyTokenRefreshView
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
          name='token_obtain_pair'),
     path('api/token/refresh/', MyTokenRefreshView.as_view(),
          name='token_refresh'),
+    path('store/', include(store.urls), name='store'),
 
     # path('api/token/', ObtainToken.as_view()),
     # path('api-auth/', include('rest_framework.urls'),

@@ -1,8 +1,8 @@
 from django.db import models
 from accounts.models import CustomUser as Profile
-from datetime import timezone
 from decimal import Decimal
 from datetime import datetime
+from django.utils import timezone
 
 
 class Department(models.Model):

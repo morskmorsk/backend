@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Store</title>
+    <!-- Add links to your CSS files, favicon, and other head elements here -->
+    {% comment %} <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {% endcomment %}
+</head>
+
+<body>
+    <header>
+        <h1>Your Store</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'product-list' %}">Products</a></li>
+                <!-- Add other navigation items as needed -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- This block will be filled by content from other templates that extend this base -->
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your Store. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Add links to your JavaScript files here -->
+    {% comment %} <script src="{% static 'js/scripts.js' %}"></script> {% endcomment %}
+</body>
+
+</html>
