@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+<h1>Your Shopping Cart</h1>
+
+<!-- ... (The rest of the shopping cart template above) -->
+
+<div class="container">
+    {% if shopping_cart_items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in shopping_cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.price }}</td>
+                <td>${{ item.quantity|multiply:item.price }}</td>
+                <td>
+                    <a href="{% url 'increase_quantity' item.id %}">Increase Quantity</a> |
+                    <a href="{% url 'update_item' item.id %}">Update</a> |
+                    <a href="{% url 'delete_item' item.id %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Your shopping cart is empty.</p>
+    {% endif %}
+</div>
+
+<!-- ... (Pagination and rest of the shopping cart template) -->
+
+<div class="pagination">
+    <span class="step-links">
+        {% if shopping_cart_items.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ shopping_cart_items.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ shopping_cart_items.number }} of {{ shopping_cart_items.paginator.num_pages }}.
+        </span>
+
+        {% if shopping_cart_items.has_next %}
+            <a href="?page={{ shopping_cart_items.next_page_number }}">next</a>
+            <a href="?page={{ shopping_cart_items.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
